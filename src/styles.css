@@ -1,0 +1,280 @@
+:root {
+  color: #20242a;
+  background: #f5f7f8;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.hero {
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #0b6f79;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+}
+
+.control-row,
+.panel {
+  border: 1px solid #d8dee3;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(27, 42, 52, 0.07);
+}
+
+.control-row {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+select {
+  min-width: 180px;
+  border: 1px solid #aab5bc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: white;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(360px, 1.15fr);
+  gap: 16px;
+}
+
+.panel {
+  padding: 18px;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.chord-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 10px;
+}
+
+.chord-button {
+  min-height: 96px;
+  border: 1px solid #d8dee3;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  color: #20242a;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chord-button[data-selected='true'] {
+  border-color: #0b6f79;
+  outline: 3px solid #8fd3dc;
+}
+
+.chord-button span,
+.chord-button small {
+  display: block;
+  color: #5c6670;
+}
+
+.chord-button strong {
+  display: block;
+  margin: 6px 0;
+  font-size: 1.6rem;
+}
+
+.detail-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.detail-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #e5eaee;
+  padding-bottom: 10px;
+}
+
+dt {
+  color: #5c6670;
+  font-weight: 700;
+}
+
+dd {
+  margin: 0;
+  text-align: right;
+}
+
+.fretboard-wrap {
+  overflow-x: auto;
+}
+
+.fretboard {
+  display: grid;
+  min-width: max-content;
+}
+
+.fret-row {
+  display: contents;
+}
+
+.fret-label,
+.string-name,
+.fret-cell {
+  min-height: 54px;
+  border-right: 1px solid #d8dee3;
+  border-bottom: 1px solid #e5eaee;
+}
+
+.fret-label,
+.string-name {
+  display: grid;
+  place-items: center;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #edf4f5;
+  font-weight: 700;
+}
+
+.fret-cell {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(#ffffff 48%, #8c99a3 49%, #8c99a3 52%, #ffffff 53%);
+}
+
+.empty-note {
+  color: #9aa4ad;
+  font-size: 0.75rem;
+}
+
+.note-marker {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  min-height: 42px;
+  border: 2px solid #26343d;
+  border-radius: 7px;
+  background: #ffd166;
+  font-weight: 800;
+}
+
+.note-marker small {
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+
+.note-marker.root {
+  background: #df6f3c;
+  color: #fff;
+}
+
+.note-marker.third {
+  background: #f0d56b;
+}
+
+.note-marker.fifth {
+  background: #7ec7a7;
+}
+
+.voicing-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.voicing-card {
+  border: 1px solid #d8dee3;
+  border-radius: 8px;
+  padding: 14px;
+  background: #fff;
+}
+
+.voicing-pattern {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1.25rem;
+}
+
+.voicing-card p {
+  margin: 8px 0 0;
+  color: #5c6670;
+}
+
+.voicing-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.voicing-meta span {
+  border-radius: 999px;
+  background: #e8f3f4;
+  padding: 4px 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding: 20px 0;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  select {
+    width: 100%;
+  }
+}
