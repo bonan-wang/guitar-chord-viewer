@@ -21,8 +21,8 @@ export function App() {
   return (
     <main className="app-shell">
       <header className="hero">
-        <p className="eyebrow">Guitar Diatonic Chord Finder</p>
-        <h1>Key chords and playable guitar shapes</h1>
+        <p className="eyebrow">ギター・ダイアトニックコード検索</p>
+        <h1>キーのコードと弾きやすいフォーム</h1>
       </header>
 
       <section className="control-row" aria-label="Key controls">
@@ -35,7 +35,7 @@ export function App() {
 
       <div className="content-grid">
         <section className="panel">
-          <h2>Diatonic chords in {selectedKey} major</h2>
+          <h2>{selectedKey} メジャーのダイアトニックコード</h2>
           <DiatonicChordList
             chords={chords}
             selectedChordSymbol={selectedChord.symbol}
@@ -48,12 +48,12 @@ export function App() {
         </section>
 
         <section className="panel wide">
-          <h2>Fretboard</h2>
+          <h2>指板</h2>
           <Fretboard chord={selectedChord} />
         </section>
 
         <section className="panel wide">
-          <h2>Voicing candidates</h2>
+          <h2>コードフォーム候補</h2>
           <ChordVoicingList candidates={voicings} />
         </section>
       </div>

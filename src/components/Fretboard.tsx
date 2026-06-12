@@ -14,7 +14,7 @@ export function Fretboard({ chord, startFret = 0, endFret = 12 }: Props) {
   return (
     <div className="fretboard-wrap">
       <div className="fretboard" style={{ gridTemplateColumns: `72px repeat(${frets.length}, 58px)` }}>
-        <div className="fret-label">String</div>
+        <div className="fret-label">弦</div>
         {frets.map((fret) => (
           <div className="fret-label" key={fret}>
             {fret}

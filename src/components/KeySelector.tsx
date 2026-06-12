@@ -9,11 +9,11 @@ type Props = {
 export function KeySelector({ keys, selectedKey, onChange }: Props) {
   return (
     <label className="field">
-      <span>Key</span>
+      <span>キー</span>
       <select value={selectedKey} onChange={(event) => onChange(event.target.value as NoteName)}>
         {keys.map((key) => (
           <option key={key} value={key}>
-            {key} major
+            {key} メジャー
           </option>
         ))}
       </select>

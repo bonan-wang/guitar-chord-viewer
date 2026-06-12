@@ -1,5 +1,11 @@
 import { DiatonicChord } from '../domain/chords';
 
+const QUALITY_LABELS = {
+  major: 'メジャー',
+  minor: 'マイナー',
+  diminished: 'ディミニッシュ',
+} as const;
+
 type Props = {
   chords: DiatonicChord[];
   selectedChordSymbol: string;
@@ -20,7 +26,7 @@ export function DiatonicChordList({ chords, selectedChordSymbol, onSelectChord }
         >
           <span>{chord.romanNumeral}</span>
           <strong>{chord.symbol}</strong>
-          <small>{chord.quality}</small>
+          <small>{QUALITY_LABELS[chord.quality]}</small>
         </button>
       ))}
     </div>
