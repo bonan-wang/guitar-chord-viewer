@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" role="img" aria-labelledby="title desc">
+  <title id="title">PLAN0003 numbered layout wireframe</title>
+  <desc id="desc">A numbered wireframe showing header controls, wide chord selector, wide chord detail, reference chord candidates, and a collapsible fretboard panel.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f5f7f8; }
+      .panel { fill: #ffffff; stroke: #9aa4ad; stroke-width: 2; rx: 8; }
+      .panelAlt { fill: #eef6f7; stroke: #7a9ca2; stroke-width: 2; rx: 8; }
+      .label { fill: #20242a; font: 700 24px Arial, sans-serif; }
+      .small { fill: #5c6670; font: 16px Arial, sans-serif; }
+      .num { fill: #ffffff; font: 800 24px Arial, sans-serif; }
+      .numCircle { fill: #0b6f79; }
+      .chip { fill: #f5f7f8; stroke: #cbd3d8; stroke-width: 1.5; rx: 6; }
+      .selected { fill: #fff5df; stroke: #df6f3c; stroke-width: 2; rx: 6; }
+      .line { stroke: #cbd3d8; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="780"/>
+
+  <rect class="panel" x="40" y="30" width="1120" height="92"/>
+  <circle class="numCircle" cx="78" cy="76" r="22"/>
+  <text class="num" x="78" y="84" text-anchor="middle">1</text>
+  <text class="label" x="120" y="68">Header and controls</text>
+  <text class="small" x="120" y="98">Key selector, language selector, compact app title</text>
+  <rect class="chip" x="820" y="54" width="130" height="44"/>
+  <text class="small" x="885" y="82" text-anchor="middle">Key: C</text>
+  <rect class="chip" x="970" y="54" width="130" height="44"/>
+  <text class="small" x="1035" y="82" text-anchor="middle">日本語</text>
+
+  <rect class="panelAlt" x="40" y="150" width="1120" height="190"/>
+  <circle class="numCircle" cx="78" cy="190" r="22"/>
+  <text class="num" x="78" y="198" text-anchor="middle">2</text>
+  <text class="label" x="120" y="182">Wide diatonic chord / form selector</text>
+  <text class="small" x="120" y="212">Seven degree groups; every chord form is its own button</text>
+  <g transform="translate(70 238)">
+    <text class="small" x="0" y="-8">I</text>
+    <rect class="selected" x="0" y="0" width="48" height="46"/>
+    <text class="small" x="24" y="29" text-anchor="middle">C</text>
+    <rect class="chip" x="54" y="0" width="54" height="46"/>
+    <text class="small" x="81" y="29" text-anchor="middle">C6</text>
+    <rect class="chip" x="114" y="0" width="76" height="46"/>
+    <text class="small" x="152" y="29" text-anchor="middle">Cmaj7</text>
+
+    <text class="small" x="215" y="-8">IIm</text>
+    <rect class="chip" x="215" y="0" width="58" height="46"/>
+    <text class="small" x="244" y="29" text-anchor="middle">Dm</text>
+    <rect class="chip" x="279" y="0" width="66" height="46"/>
+    <text class="small" x="312" y="29" text-anchor="middle">Dm7</text>
+
+    <text class="small" x="370" y="-8">IIIm</text>
+    <rect class="chip" x="370" y="0" width="58" height="46"/>
+    <text class="small" x="399" y="29" text-anchor="middle">Em</text>
+    <rect class="chip" x="434" y="0" width="66" height="46"/>
+    <text class="small" x="467" y="29" text-anchor="middle">Em7</text>
+
+    <text class="small" x="525" y="-8">IV</text>
+    <rect class="chip" x="525" y="0" width="48" height="46"/>
+    <text class="small" x="549" y="29" text-anchor="middle">F</text>
+    <rect class="chip" x="579" y="0" width="54" height="46"/>
+    <text class="small" x="606" y="29" text-anchor="middle">F6</text>
+    <rect class="chip" x="639" y="0" width="76" height="46"/>
+    <text class="small" x="677" y="29" text-anchor="middle">Fmaj7</text>
+
+    <text class="small" x="740" y="-8">V</text>
+    <rect class="chip" x="740" y="0" width="48" height="46"/>
+    <text class="small" x="764" y="29" text-anchor="middle">G</text>
+    <rect class="chip" x="794" y="0" width="54" height="46"/>
+    <text class="small" x="821" y="29" text-anchor="middle">G7</text>
+
+    <text class="small" x="873" y="-8">VIm</text>
+    <rect class="chip" x="873" y="0" width="58" height="46"/>
+    <text class="small" x="902" y="29" text-anchor="middle">Am</text>
+    <rect class="chip" x="937" y="0" width="66" height="46"/>
+    <text class="small" x="970" y="29" text-anchor="middle">Am7</text>
+
+    <text class="small" x="1028" y="-8">VIIm-5</text>
+    <rect class="chip" x="1028" y="0" width="82" height="46"/>
+    <text class="small" x="1069" y="29" text-anchor="middle">Bm7-5</text>
+  </g>
+
+  <rect class="panel" x="40" y="368" width="1120" height="166"/>
+  <circle class="numCircle" cx="78" cy="408" r="22"/>
+  <text class="num" x="78" y="416" text-anchor="middle">4</text>
+  <text class="label" x="120" y="402">Built-in chord candidates</text>
+  <text class="small" x="120" y="432">Local app data copied from reference diagrams during development</text>
+  <rect class="selected" x="120" y="458" width="160" height="52"/>
+  <text class="small" x="200" y="489" text-anchor="middle">x 3 2 0 1 0</text>
+  <rect class="chip" x="300" y="458" width="140" height="52"/>
+  <text class="small" x="370" y="489" text-anchor="middle">candidate</text>
+  <rect class="chip" x="460" y="458" width="140" height="52"/>
+  <text class="small" x="530" y="489" text-anchor="middle">candidate</text>
+  <rect class="chip" x="620" y="458" width="140" height="52"/>
+  <text class="small" x="690" y="489" text-anchor="middle">candidate</text>
+
+  <rect class="panel" x="40" y="560" width="1120" height="94"/>
+  <circle class="numCircle" cx="78" cy="600" r="22"/>
+  <text class="num" x="78" y="608" text-anchor="middle">3</text>
+  <text class="label" x="120" y="594">Wide selected chord detail</text>
+  <text class="small" x="120" y="624">Degree, quality, chord tones stay visible while fretboard is collapsed</text>
+  <line class="line" x1="520" y1="578" x2="520" y2="638"/>
+  <text class="small" x="555" y="596">Degree: C major I</text>
+  <text class="small" x="755" y="596">Quality: Major</text>
+  <text class="small" x="955" y="596">Tones: C E G</text>
+
+  <rect class="panel" x="40" y="680" width="1120" height="70"/>
+  <circle class="numCircle" cx="78" cy="715" r="22"/>
+  <text class="num" x="78" y="723" text-anchor="middle">5</text>
+  <text class="label" x="120" y="708">Collapsible fretboard</text>
+  <text class="small" x="120" y="735">Toggle opens the full fretboard body below this row</text>
+  <rect class="chip" x="900" y="695" width="180" height="38"/>
+  <text class="small" x="990" y="720" text-anchor="middle">Show fretboard</text>
+</svg>

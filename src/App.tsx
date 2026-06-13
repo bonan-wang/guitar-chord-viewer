@@ -7,7 +7,7 @@ import { KeySelector } from './components/KeySelector';
 import { LanguageSelector } from './components/LanguageSelector';
 import { getMajorKeyDiatonicChordGroups } from './domain/chords';
 import { CHROMATIC_NOTES, ChordQuality, getNoteDisplayLabel, NoteName } from './domain/notes';
-import { generateVoicings, selectRepresentativeVoicingsByPosition } from './domain/voicings';
+import { getPreferredVoicings } from './domain/referenceVoicings';
 import { DICTIONARY, Language } from './i18n';
 
 export function App() {
@@ -15,15 +15,13 @@ export function App() {
   const [selectedDegree, setSelectedDegree] = useState(1);
   const [selectedQuality, setSelectedQuality] = useState<ChordQuality>('major');
   const [language, setLanguage] = useState<Language>('ja');
+  const [isFretboardOpen, setIsFretboardOpen] = useState(true);
   const t = DICTIONARY[language];
 
   const chordGroups = useMemo(() => getMajorKeyDiatonicChordGroups(selectedKey), [selectedKey]);
   const selectedGroup = chordGroups[selectedDegree - 1] ?? chordGroups[0];
   const selectedChord = selectedGroup.forms.find((form) => form.quality === selectedQuality) ?? selectedGroup.forms[0];
-  const voicings = useMemo(
-    () => selectRepresentativeVoicingsByPosition(generateVoicings(selectedChord.tones, { limit: 500 })),
-    [selectedChord],
-  );
+  const voicings = useMemo(() => getPreferredVoicings(selectedChord), [selectedChord]);
 
   return (
     <main className="app-shell">
@@ -43,7 +41,7 @@ export function App() {
       </section>
 
       <div className="content-grid">
-        <section className="panel">
+        <section className="panel wide">
           <h2>{t.chordListTitle(getNoteDisplayLabel(selectedKey))}</h2>
           <DiatonicChordList
             groups={chordGroups}
@@ -56,18 +54,33 @@ export function App() {
           />
         </section>
 
-        <section className="panel">
+        <section className="panel wide">
+          <h2>{t.voicingsTitle}</h2>
+          <ChordVoicingList candidates={voicings} t={t} />
+        </section>
+
+        <section className="panel wide">
           <ChordDetail chord={selectedChord} selectedKey={selectedKey} t={t} />
         </section>
 
         <section className="panel wide">
-          <h2>{t.fretboardTitle}</h2>
-          <Fretboard chord={selectedChord} t={t} />
-        </section>
-
-        <section className="panel wide">
-          <h2>{t.voicingsTitle}</h2>
-          <ChordVoicingList candidates={voicings} t={t} />
+          <div className="panel-heading">
+            <h2>{t.fretboardTitle}</h2>
+            <button
+              className="toggle-button"
+              type="button"
+              aria-expanded={isFretboardOpen}
+              aria-controls="fretboard-panel-body"
+              onClick={() => setIsFretboardOpen((current) => !current)}
+            >
+              {isFretboardOpen ? t.collapse : t.expand}
+            </button>
+          </div>
+          {isFretboardOpen ? (
+            <div id="fretboard-panel-body">
+              <Fretboard chord={selectedChord} t={t} />
+            </div>
+          ) : null}
         </section>
       </div>
     </main>

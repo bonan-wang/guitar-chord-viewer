@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getChordTones, getMajorKeyDiatonicChordGroups, getMajorKeyDiatonicTriads } from './chords';
 import { DISPLAY_STRINGS_HIGH_TO_LOW, getFretboard, STANDARD_TUNING } from './guitar';
+import { getPreferredVoicings, getReferenceVoicings } from './referenceVoicings';
 import { getMajorScale } from './scales';
 import { generateVoicings, selectRepresentativeVoicingsByPosition } from './voicings';
 
@@ -88,5 +89,21 @@ describe('music domain', () => {
     expect(representatives.map((voicing) => voicing.id)).toContain('x 3 2 0 1 0');
     expect(representatives.length).toBeGreaterThan(1);
     expect(new Set(representatives.map((voicing) => voicing.minFret)).size).toBe(representatives.length);
+  });
+
+  it('uses built-in reference voicings for C major forms', () => {
+    const chord = getMajorKeyDiatonicChordGroups('C')[0].forms[0];
+    const voicings = getReferenceVoicings(chord);
+
+    expect(voicings.map((voicing) => voicing.id)).toContain('x 3 2 0 1 0');
+    expect(voicings[0].sourceId).toBe('0_0_1');
+  });
+
+  it('falls back to generated voicings when no local reference form exists', () => {
+    const chord = getMajorKeyDiatonicChordGroups('C#')[0].forms[0];
+    const voicings = getPreferredVoicings(chord);
+
+    expect(voicings.length).toBeGreaterThan(0);
+    expect(voicings.some((voicing) => voicing.sourceId)).toBe(false);
   });
 });

@@ -16,6 +16,7 @@ export type VoicingCandidate = {
   positionLabel: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   score: number;
+  sourceId?: string;
 };
 
 export type PositionRange = {
@@ -150,5 +151,49 @@ function toCandidate(
     positionLabel: minFret === 0 ? 'Open position' : `${minFret}th position`,
     difficulty: fretSpan <= 3 && minFret <= 3 ? 'Easy' : fretSpan <= 5 ? 'Medium' : 'Hard',
     score,
+  };
+}
+
+export function voicingFromPattern(
+  pattern: Array<'x' | number>,
+  tones: NoteName[],
+  sourceId?: string,
+): VoicingCandidate | undefined {
+  if (pattern.length !== STANDARD_TUNING.length) return undefined;
+
+  const states: StringState[] = [];
+  for (const [index, value] of pattern.entries()) {
+    if (value === 'x') {
+      states.push({ type: 'muted' });
+      continue;
+    }
+    const note = getNoteAtFret(STANDARD_TUNING[index], value);
+    const chordTone = getChordToneRole(note, tones);
+    if (!chordTone) return undefined;
+    states.push({ type: 'played', fret: value, note, chordTone });
+  }
+
+  const played = states.filter((state): state is Extract<StringState, { type: 'played' }> => state.type === 'played');
+  const included = new Set(played.map((state) => state.note));
+  if (!tones.every((tone) => included.has(tone))) return undefined;
+
+  const fretted = played.map((state) => state.fret).filter((fret) => fret > 0);
+  const minFret = fretted.length ? Math.min(...fretted) : 0;
+  const maxFret = fretted.length ? Math.max(...fretted) : 0;
+  const fretSpan = fretted.length ? maxFret - minFret + 1 : 0;
+  const score = minFret * 10 + fretSpan * 4 - played.length * 3;
+
+  return {
+    id: formatVoicing(pattern),
+    pattern,
+    states,
+    notes: played.map((state) => state.note),
+    minFret,
+    maxFret,
+    fretSpan,
+    positionLabel: minFret === 0 ? 'Open position' : `${minFret}th position`,
+    difficulty: fretSpan <= 3 && minFret <= 3 ? 'Easy' : fretSpan <= 5 ? 'Medium' : 'Hard',
+    score,
+    sourceId,
   };
 }
