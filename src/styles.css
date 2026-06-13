@@ -240,7 +240,7 @@ dd {
 }
 
 .chord-diagram {
-  width: min(100%, 206px);
+  width: min(100%, 190px);
   height: auto;
 }
 
@@ -252,13 +252,13 @@ dd {
 
 .diagram-nut {
   stroke: #26343d;
-  stroke-width: 6;
+  stroke-width: 5;
 }
 
 .diagram-open-label,
 .diagram-fret-label {
   fill: #26343d;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -281,7 +281,7 @@ dd {
 
 .diagram-note {
   fill: #20242a;
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 900;
 }
 

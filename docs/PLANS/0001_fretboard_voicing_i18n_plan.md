@@ -8,7 +8,12 @@ Improve the fretboard display, chord voicing candidates, chord diagrams, and lan
 
 - Reference site: https://www.aki-f.com/chordbook/item.php?id=0_0
 - The reference site separates chord shapes, chord tones, fretboard positions, and chord images.
-- Treat the chord image as an intuitive vertical diagram that shows each string state, fretted positions, open strings, and muted strings.
+- Treat each chord image as a small horizontal fretboard, matching the attached reference image:
+  - Y-axis: strings.
+  - X-axis: frets.
+  - Open and muted strings are shown at the left side.
+  - Fretted notes are shown as dots on the grid.
+  - Fret numbers are shown along the bottom.
 
 ## Scope
 
@@ -27,7 +32,14 @@ Improve the fretboard display, chord voicing candidates, chord diagrams, and lan
 
 3. Add intuitive chord diagrams
    - Add a `ChordDiagram` component.
-   - Show six vertical strings, fret lines, nut, finger dots, open `O`, and muted `X`.
+   - Render each chord form as a horizontal mini fretboard, not a vertical chord box.
+   - Use the same orientation as the main fretboard area:
+     - Y-axis is strings.
+     - X-axis is frets.
+     - Top row is the highest string, bottom row is the lowest string.
+   - Show open `O` and muted `X` markers at the left side of the grid.
+   - Show fretted notes as dots inside the grid.
+   - Show fret numbers along the bottom.
    - Keep the text pattern, such as `x 3 2 0 1 0`, as supporting information.
    - Make root notes visually distinct from third and fifth notes.
    - Implement with stable responsive dimensions, using SVG or CSS grid.
@@ -61,6 +73,11 @@ Improve the fretboard display, chord voicing candidates, chord diagrams, and lan
 4. Chord diagram UI
    - Add `ChordDiagram.tsx`.
    - Render `ChordDiagram` inside each `ChordVoicingList` card.
+   - Use a horizontal fretboard layout like the attached screenshot.
+   - Draw strings as horizontal lanes and frets as vertical divisions.
+   - Align string order with the main fretboard: `1 E` at the top and `6 E` at the bottom.
+   - Place open/mute markers to the left of the nut line.
+   - Place fret numbers under the grid.
    - Keep pattern, notes, position label, span, and difficulty as compact metadata.
    - Match the reference site's clarity without copying its image assets.
 
@@ -77,6 +94,7 @@ Improve the fretboard display, chord voicing candidates, chord diagrams, and lan
      - The fretboard top row is `1 E`.
      - The fretboard bottom row is `6 E`.
      - Voicing candidates show one representative per position.
+     - Chord diagrams are horizontal mini fretboards, with strings on the Y-axis and frets on the X-axis.
      - Chord diagrams make forms like C `x 3 2 0 1 0` easy to understand.
      - Switching Japanese/English updates the main UI labels.
 
@@ -84,7 +102,8 @@ Improve the fretboard display, chord voicing candidates, chord diagrams, and lan
 
 - The fretboard displays `1 E` at the top and `6 E` at the bottom.
 - Chord voicing candidates show only one representative form per position.
-- Chord forms are displayed as intuitive diagrams similar in clarity to the reference site.
+- Chord forms are displayed as horizontal mini fretboard diagrams like the attached image.
+- In chord form diagrams, the Y-axis is strings and the X-axis is frets.
 - The UI can switch between Japanese and English.
 - Existing mojibake labels are fixed.
 - `npm run test` passes.
