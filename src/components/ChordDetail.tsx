@@ -1,34 +1,28 @@
 import { DiatonicChord } from '../domain/chords';
 import { NoteName } from '../domain/notes';
-
-const QUALITY_LABELS = {
-  major: 'メジャー',
-  minor: 'マイナー',
-  diminished: 'ディミニッシュ',
-} as const;
+import { Translation } from '../i18n';
 
 type Props = {
   chord: DiatonicChord;
   selectedKey: NoteName;
+  t: Translation;
 };
 
-export function ChordDetail({ chord, selectedKey }: Props) {
+export function ChordDetail({ chord, selectedKey, t }: Props) {
   return (
     <>
       <h2>{chord.symbol}</h2>
       <dl className="detail-list">
         <div>
-          <dt>度数</dt>
-          <dd>
-            {selectedKey} メジャーの {chord.romanNumeral}
-          </dd>
+          <dt>{t.degree}</dt>
+          <dd>{t.inMajorKey(selectedKey, chord.romanNumeral)}</dd>
         </div>
         <div>
-          <dt>種類</dt>
-          <dd>{QUALITY_LABELS[chord.quality]}</dd>
+          <dt>{t.quality}</dt>
+          <dd>{t.qualityLabel[chord.quality]}</dd>
         </div>
         <div>
-          <dt>構成音</dt>
+          <dt>{t.chordTones}</dt>
           <dd>{chord.tones.join('  ')}</dd>
         </div>
       </dl>

@@ -1,32 +1,28 @@
 import { formatVoicing, VoicingCandidate } from '../domain/voicings';
-
-const DIFFICULTY_LABELS = {
-  Easy: 'かんたん',
-  Medium: 'ふつう',
-  Hard: 'むずかしい',
-} as const;
-
-function formatPositionLabel(candidate: VoicingCandidate): string {
-  return candidate.minFret === 0 ? 'オープンポジション' : `${candidate.minFret}フレット付近`;
-}
+import { getPositionLabel, Translation } from '../i18n';
+import { ChordDiagram } from './ChordDiagram';
 
 type Props = {
   candidates: VoicingCandidate[];
+  t: Translation;
 };
 
-export function ChordVoicingList({ candidates }: Props) {
+export function ChordVoicingList({ candidates, t }: Props) {
   return (
     <div className="voicing-list">
       {candidates.map((candidate) => (
         <article className="voicing-card" key={candidate.id}>
+          <ChordDiagram candidate={candidate} />
           <div>
             <strong className="voicing-pattern">{formatVoicing(candidate.pattern)}</strong>
             <p>{candidate.notes.join('  ')}</p>
           </div>
           <div className="voicing-meta">
-            <span>{formatPositionLabel(candidate)}</span>
-            <span>幅 {candidate.fretSpan || 0}</span>
-            <span>{DIFFICULTY_LABELS[candidate.difficulty]}</span>
+            <span>{getPositionLabel(candidate.minFret, t)}</span>
+            <span>
+              {t.span} {candidate.fretSpan || 0}
+            </span>
+            <span>{t.difficulty[candidate.difficulty]}</span>
           </div>
         </article>
       ))}

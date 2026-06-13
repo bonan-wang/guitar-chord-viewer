@@ -2,6 +2,15 @@ import { ChordToneRole, NoteName, transpose } from './notes';
 
 export const STANDARD_TUNING: NoteName[] = ['E', 'A', 'D', 'G', 'B', 'E'];
 
+export const DISPLAY_STRINGS_HIGH_TO_LOW = [
+  { stringNumber: 1, openNote: 'E' },
+  { stringNumber: 2, openNote: 'B' },
+  { stringNumber: 3, openNote: 'G' },
+  { stringNumber: 4, openNote: 'D' },
+  { stringNumber: 5, openNote: 'A' },
+  { stringNumber: 6, openNote: 'E' },
+] as const satisfies ReadonlyArray<{ stringNumber: 1 | 2 | 3 | 4 | 5 | 6; openNote: NoteName }>;
+
 export type FretboardPosition = {
   stringNumber: 1 | 2 | 3 | 4 | 5 | 6;
   stringLabel: string;

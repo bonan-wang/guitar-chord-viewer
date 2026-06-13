@@ -57,6 +57,9 @@ h2 {
 }
 
 .control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   padding: 16px;
   margin-bottom: 16px;
 }
@@ -227,10 +230,63 @@ dd {
 }
 
 .voicing-card {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
   border: 1px solid #d8dee3;
   border-radius: 8px;
   padding: 14px;
   background: #fff;
+}
+
+.chord-diagram {
+  width: min(100%, 206px);
+  height: auto;
+}
+
+.diagram-string,
+.diagram-fret {
+  stroke: #26343d;
+  stroke-width: 1.5;
+}
+
+.diagram-nut {
+  stroke: #26343d;
+  stroke-width: 6;
+}
+
+.diagram-open-label,
+.diagram-fret-label {
+  fill: #26343d;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.diagram-dot {
+  stroke: #26343d;
+  stroke-width: 1.5;
+}
+
+.diagram-dot.root {
+  fill: #df6f3c;
+}
+
+.diagram-dot.third {
+  fill: #f0d56b;
+}
+
+.diagram-dot.fifth {
+  fill: #7ec7a7;
+}
+
+.diagram-note {
+  fill: #20242a;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.diagram-dot.root + .diagram-note {
+  fill: #fff;
 }
 
 .voicing-pattern {
@@ -242,6 +298,7 @@ dd {
 .voicing-card p {
   margin: 8px 0 0;
   color: #5c6670;
+  text-align: center;
 }
 
 .voicing-meta {

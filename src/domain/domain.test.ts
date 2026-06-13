@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { getMajorKeyDiatonicTriads } from './chords';
-import { getFretboard, STANDARD_TUNING } from './guitar';
+import { DISPLAY_STRINGS_HIGH_TO_LOW, getFretboard, STANDARD_TUNING } from './guitar';
 import { getMajorScale } from './scales';
-import { generateVoicings } from './voicings';
+import { generateVoicings, selectRepresentativeVoicingsByPosition } from './voicings';
 
 describe('music domain', () => {
   it('generates major scales', () => {
@@ -24,6 +24,7 @@ describe('music domain', () => {
 
   it('maps standard tuning and chord-tone fretboard positions', () => {
     expect(STANDARD_TUNING).toEqual(['E', 'A', 'D', 'G', 'B', 'E']);
+    expect(DISPLAY_STRINGS_HIGH_TO_LOW.map((item) => item.stringNumber)).toEqual([1, 2, 3, 4, 5, 6]);
     const positions = getFretboard(['C', 'E', 'G'], 0, 12);
     expect(positions).toEqual(
       expect.arrayContaining([
@@ -39,5 +40,15 @@ describe('music domain', () => {
     const voicings = generateVoicings(['C', 'E', 'G'], { limit: 20 });
     expect(voicings.map((voicing) => voicing.id)).toContain('x 3 2 0 1 0');
     expect(voicings[0].notes).toEqual(expect.arrayContaining(['C', 'E', 'G']));
+  });
+
+  it('selects representative voicings by position', () => {
+    const representatives = selectRepresentativeVoicingsByPosition(
+      generateVoicings(['C', 'E', 'G'], { limit: 500 }),
+    );
+
+    expect(representatives.map((voicing) => voicing.id)).toContain('x 3 2 0 1 0');
+    expect(representatives.length).toBeGreaterThan(1);
+    expect(new Set(representatives.map((voicing) => voicing.minFret)).size).toBe(representatives.length);
   });
 });

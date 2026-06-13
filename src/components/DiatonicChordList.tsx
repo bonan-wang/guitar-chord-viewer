@@ -1,18 +1,14 @@
 import { DiatonicChord } from '../domain/chords';
-
-const QUALITY_LABELS = {
-  major: 'メジャー',
-  minor: 'マイナー',
-  diminished: 'ディミニッシュ',
-} as const;
+import { Translation } from '../i18n';
 
 type Props = {
   chords: DiatonicChord[];
   selectedChordSymbol: string;
+  t: Translation;
   onSelectChord: (chord: DiatonicChord) => void;
 };
 
-export function DiatonicChordList({ chords, selectedChordSymbol, onSelectChord }: Props) {
+export function DiatonicChordList({ chords, selectedChordSymbol, t, onSelectChord }: Props) {
   return (
     <div className="chord-list">
       {chords.map((chord) => (
@@ -26,7 +22,7 @@ export function DiatonicChordList({ chords, selectedChordSymbol, onSelectChord }
         >
           <span>{chord.romanNumeral}</span>
           <strong>{chord.symbol}</strong>
-          <small>{QUALITY_LABELS[chord.quality]}</small>
+          <small>{t.qualityLabel[chord.quality]}</small>
         </button>
       ))}
     </div>

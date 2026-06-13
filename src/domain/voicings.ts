@@ -18,6 +18,21 @@ export type VoicingCandidate = {
   score: number;
 };
 
+export type PositionRange = {
+  id: string;
+  labelKey: 'open' | 'low' | 'middle' | 'high' | 'upper';
+  min: number;
+  max: number;
+};
+
+export const POSITION_RANGES: PositionRange[] = [
+  { id: 'open', labelKey: 'open', min: 0, max: 0 },
+  { id: 'low', labelKey: 'low', min: 1, max: 3 },
+  { id: 'middle', labelKey: 'middle', min: 4, max: 6 },
+  { id: 'high', labelKey: 'high', min: 7, max: 9 },
+  { id: 'upper', labelKey: 'upper', min: 10, max: 12 },
+];
+
 type GenerateOptions = {
   startFret?: number;
   endFret?: number;
@@ -74,6 +89,22 @@ export function generateVoicings(
   }
 
   return [...unique.values()].slice(0, limit);
+}
+
+export function selectRepresentativeVoicingsByPosition(
+  candidates: VoicingCandidate[],
+): VoicingCandidate[] {
+  return POSITION_RANGES.flatMap((range) => {
+    const match = candidates
+      .filter((candidate) =>
+        range.id === 'open'
+          ? candidate.minFret === 0
+          : candidate.minFret >= range.min && candidate.minFret <= range.max,
+      )
+      .sort((a, b) => a.score - b.score)[0];
+
+    return match ? [match] : [];
+  });
 }
 
 function toCandidate(
