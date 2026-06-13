@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getChordTones, getMajorKeyDiatonicChordGroups, getMajorKeyDiatonicTriads } from './chords';
 import { DISPLAY_STRINGS_HIGH_TO_LOW, getFretboard, STANDARD_TUNING } from './guitar';
+import { CHROMATIC_NOTES, type ChordQuality } from './notes';
 import { getPreferredVoicings, getReferenceVoicings } from './referenceVoicings';
 import { getMajorScale } from './scales';
 import { generateVoicings, selectRepresentativeVoicingsByPosition } from './voicings';
@@ -99,8 +100,36 @@ describe('music domain', () => {
     expect(voicings[0].sourceId).toBe('0_0_1');
   });
 
+  it('has built-in reference voicings for every supported root and form quality', () => {
+    const qualities: ChordQuality[] = [
+      'major',
+      'major6',
+      'major7',
+      'minor',
+      'minor7',
+      'dominant7',
+      'minor7Flat5',
+    ];
+
+    for (const root of CHROMATIC_NOTES) {
+      for (const quality of qualities) {
+        expect(
+          getReferenceVoicings({
+            degree: 1,
+            romanNumeral: 'I',
+            root,
+            quality,
+            symbol: `${root}:${quality}`,
+            tones: getChordTones(root, quality),
+          }).length,
+          `${root}:${quality}`,
+        ).toBeGreaterThan(0);
+      }
+    }
+  });
+
   it('falls back to generated voicings when no local reference form exists', () => {
-    const chord = getMajorKeyDiatonicChordGroups('C#')[0].forms[0];
+    const chord = getMajorKeyDiatonicTriads('C')[6];
     const voicings = getPreferredVoicings(chord);
 
     expect(voicings.length).toBeGreaterThan(0);
