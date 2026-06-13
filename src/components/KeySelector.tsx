@@ -1,4 +1,4 @@
-import { NoteName } from '../domain/notes';
+import { getNoteDisplayLabel, NoteName } from '../domain/notes';
 import { Translation } from '../i18n';
 
 type Props = {
@@ -15,7 +15,7 @@ export function KeySelector({ keys, selectedKey, t, onChange }: Props) {
       <select value={selectedKey} onChange={(event) => onChange(event.target.value as NoteName)}>
         {keys.map((key) => (
           <option key={key} value={key}>
-            {key} {t.majorSuffix}
+            {getNoteDisplayLabel(key)} {t.majorSuffix}
           </option>
         ))}
       </select>

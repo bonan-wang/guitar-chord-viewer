@@ -1,5 +1,5 @@
 import { DiatonicChord } from '../domain/chords';
-import { NoteName } from '../domain/notes';
+import { getNoteDisplayLabel, NoteName } from '../domain/notes';
 import { Translation } from '../i18n';
 
 type Props = {
@@ -15,7 +15,7 @@ export function ChordDetail({ chord, selectedKey, t }: Props) {
       <dl className="detail-list">
         <div>
           <dt>{t.degree}</dt>
-          <dd>{t.inMajorKey(selectedKey, chord.romanNumeral)}</dd>
+          <dd>{t.inMajorKey(getNoteDisplayLabel(selectedKey), chord.romanNumeral)}</dd>
         </div>
         <div>
           <dt>{t.quality}</dt>

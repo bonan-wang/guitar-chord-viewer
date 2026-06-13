@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMajorKeyDiatonicTriads } from './chords';
+import { getChordTones, getMajorKeyDiatonicChordGroups, getMajorKeyDiatonicTriads } from './chords';
 import { DISPLAY_STRINGS_HIGH_TO_LOW, getFretboard, STANDARD_TUNING } from './guitar';
 import { getMajorScale } from './scales';
 import { generateVoicings, selectRepresentativeVoicingsByPosition } from './voicings';
@@ -20,6 +20,44 @@ describe('music domain', () => {
       'Am',
       'Bdim',
     ]);
+  });
+
+  it('generates reference chord forms for C major', () => {
+    expect(getMajorKeyDiatonicChordGroups('C').map((group) => group.forms.map((form) => form.symbol))).toEqual([
+      ['C', 'C6', 'Cmaj7'],
+      ['Dm', 'Dm7'],
+      ['Em', 'Em7'],
+      ['F', 'F6', 'Fmaj7'],
+      ['G', 'G7'],
+      ['Am', 'Am7'],
+      ['Bm7-5'],
+    ]);
+  });
+
+  it('generates reference chord forms for other keys', () => {
+    expect(getMajorKeyDiatonicChordGroups('G').flatMap((group) => group.forms.map((form) => form.symbol))).toEqual([
+      'G',
+      'G6',
+      'Gmaj7',
+      'Am',
+      'Am7',
+      'Bm',
+      'Bm7',
+      'C',
+      'C6',
+      'Cmaj7',
+      'D',
+      'D7',
+      'Em',
+      'Em7',
+      'F#(G♭)m7-5',
+    ]);
+  });
+
+  it('generates extended chord tones', () => {
+    expect(getChordTones('C', 'major7')).toEqual(['C', 'E', 'G', 'B']);
+    expect(getChordTones('G', 'dominant7')).toEqual(['G', 'B', 'D', 'F']);
+    expect(getChordTones('B', 'minor7Flat5')).toEqual(['B', 'D', 'F', 'A']);
   });
 
   it('maps standard tuning and chord-tone fretboard positions', () => {

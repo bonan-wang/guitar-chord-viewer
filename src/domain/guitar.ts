@@ -1,4 +1,4 @@
-import { ChordToneRole, NoteName, transpose } from './notes';
+import { ChordToneRole, NoteName, noteIndex, transpose } from './notes';
 
 export const STANDARD_TUNING: NoteName[] = ['E', 'A', 'D', 'G', 'B', 'E'];
 
@@ -31,6 +31,10 @@ export function getChordToneRole(
   if (index === 0) return 'root';
   if (index === 1) return 'third';
   if (index === 2) return 'fifth';
+  if (index === 3) {
+    const interval = (noteIndex(note) - noteIndex(tones[0]) + 12) % 12;
+    return interval === 9 ? 'sixth' : 'seventh';
+  }
   return undefined;
 }
 

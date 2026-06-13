@@ -130,7 +130,10 @@ function toCandidate(
     .slice(1, 5)
     .filter((value, index, middle) => value === 'x' && middle[index - 1] !== 'x').length;
   const openBonus = pattern.includes(0) ? -3 : 0;
-  const score = minFret * 10 + fretSpan * 4 + mutedMiddlePenalty * 6 - played.length + openBonus;
+  const bassNote = played[0]?.note;
+  const bassPenalty = bassNote === tones[0] ? -2 : 8;
+  const score =
+    minFret * 10 + fretSpan * 4 + mutedMiddlePenalty * 6 - played.length * 3 + openBonus + bassPenalty;
 
   return {
     id: formatVoicing(pattern),

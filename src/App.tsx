@@ -5,19 +5,21 @@ import { DiatonicChordList } from './components/DiatonicChordList';
 import { Fretboard } from './components/Fretboard';
 import { KeySelector } from './components/KeySelector';
 import { LanguageSelector } from './components/LanguageSelector';
-import { getMajorKeyDiatonicTriads } from './domain/chords';
-import { CHROMATIC_NOTES, NoteName } from './domain/notes';
+import { getMajorKeyDiatonicChordGroups } from './domain/chords';
+import { CHROMATIC_NOTES, ChordQuality, getNoteDisplayLabel, NoteName } from './domain/notes';
 import { generateVoicings, selectRepresentativeVoicingsByPosition } from './domain/voicings';
 import { DICTIONARY, Language } from './i18n';
 
 export function App() {
   const [selectedKey, setSelectedKey] = useState<NoteName>('C');
   const [selectedDegree, setSelectedDegree] = useState(1);
+  const [selectedQuality, setSelectedQuality] = useState<ChordQuality>('major');
   const [language, setLanguage] = useState<Language>('ja');
   const t = DICTIONARY[language];
 
-  const chords = useMemo(() => getMajorKeyDiatonicTriads(selectedKey), [selectedKey]);
-  const selectedChord = chords[selectedDegree - 1] ?? chords[0];
+  const chordGroups = useMemo(() => getMajorKeyDiatonicChordGroups(selectedKey), [selectedKey]);
+  const selectedGroup = chordGroups[selectedDegree - 1] ?? chordGroups[0];
+  const selectedChord = selectedGroup.forms.find((form) => form.quality === selectedQuality) ?? selectedGroup.forms[0];
   const voicings = useMemo(
     () => selectRepresentativeVoicingsByPosition(generateVoicings(selectedChord.tones, { limit: 500 })),
     [selectedChord],
@@ -42,12 +44,15 @@ export function App() {
 
       <div className="content-grid">
         <section className="panel">
-          <h2>{t.chordListTitle(selectedKey)}</h2>
+          <h2>{t.chordListTitle(getNoteDisplayLabel(selectedKey))}</h2>
           <DiatonicChordList
-            chords={chords}
+            groups={chordGroups}
             selectedChordSymbol={selectedChord.symbol}
             t={t}
-            onSelectChord={(chord) => setSelectedDegree(chord.degree)}
+            onSelectChord={(chord) => {
+              setSelectedDegree(chord.degree);
+              setSelectedQuality(chord.quality);
+            }}
           />
         </section>
 
